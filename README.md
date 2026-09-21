@@ -1,4 +1,4 @@
-MIMIC-IV ICU Mortality Prediction
+# MIMIC-IV ICU Mortality Prediction
 
 A reproducible machine-learning pipeline for predicting in-hospital mortality among ICU patients using data from the MIMIC-IV
  database.
@@ -8,6 +8,7 @@ The project combines SQL-based cohort construction and feature extraction with P
 Important: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
 
 Project Structure
+'''
 mimic-iv-icu-mortality/
 │
 ├── README.md
@@ -34,8 +35,9 @@ mimic-iv-icu-mortality/
 ├── results/
 │
 └── requirements.txt
+'''
 
-Objectives
+##Objectives
 
 The main objectives are to:
 
