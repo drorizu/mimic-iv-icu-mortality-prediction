@@ -54,7 +54,8 @@ Access to MIMIC-IV requires completion of the applicable PhysioNet credentialing
 The SQL scripts assume that MIMIC-IV has been loaded into a relational database such as PostgreSQL.
 
 ## Cohort Definition
-The exact cohort definition is implemented in: sql/01_cohort.sql
+The exact cohort definition is implemented in: **sql/01_cohort.sql**
+
 The cohort construction should explicitly define:
 - ICU admission criteria.
 - Adult versus pediatric patients.
@@ -69,9 +70,9 @@ The prediction target is: in-hospital mortality
 The prediction time point and observation window should be fixed before model training to avoid using information that would not have been available at prediction time.
 
 ## Feature Extraction
-Item Dictionary: sql/02_item_dictionary.sql maps MIMIC-IV item identifiers to the clinical variables required by the project.
+Item Dictionary: **sql/02_item_dictionary.sql** maps MIMIC-IV item identifiers to the clinical variables required by the project.
 
-Vital Signs: sql/03_vitals.sql extracts measurements such as:
+Vital Signs: **sql/03_vitals.sql** extracts measurements such as:
 - Heart rate
 - Systolic blood pressure
 - Diastolic blood pressure
@@ -80,7 +81,7 @@ Vital Signs: sql/03_vitals.sql extracts measurements such as:
 - Temperature
 - Oxygen saturation
   
-Laboratory Measurements: sql/04_labs.sql extracts relevant laboratory measurements, for example:
+Laboratory Measurements: **sql/04_labs.sql** extracts relevant laboratory measurements, for example:
 - Sodium
 - Potassium
 - Chloride
@@ -94,18 +95,18 @@ Laboratory Measurements: sql/04_labs.sql extracts relevant laboratory measuremen
 - Lactate
 The final variable list should be documented in the corresponding SQL file.
 
-Mechanical Ventilation: sql/05_ventilation.sql creates features describing mechanical ventilation exposure during the observation window.
+Mechanical Ventilation: **sql/05_ventilation.sql** creates features describing mechanical ventilation exposure during the observation window.
 
-Vasopressors: sql/06_pressors.sql extracts vasopressor exposure and, where appropriate, dose-related features.
+Vasopressors: **sql/06_pressors.sql** extracts vasopressor exposure and, where appropriate, dose-related features.
 
-Urine Output: sql/07_urine_output.sql calculates urine-output-related features over the predefined observation period.
+Urine Output: **sql/07_urine_output.sql** calculates urine-output-related features over the predefined observation period.
 
-Final Dataset: sql/08_final_dataset.sql combines the cohort and extracted variables into the modeling dataset.
+Final Dataset: **sql/08_final_dataset.sql** combines the cohort and extracted variables into the modeling dataset.
 
 The resulting dataset should contain one modeling record per index ICU stay.
 
 ## Python Pipeline
-1. Exploration: python/01_exploration.py performs exploratory data analysis, including:
+1. Exploration: **python/01_exploration.py** performs exploratory data analysis, including:
 - Dataset dimensions.
 - Missingness.
 - Variable distributions.
@@ -113,8 +114,7 @@ The resulting dataset should contain one modeling record per index ICU stay.
 - Basic descriptive statistics.
 - Potential data-quality problems.
 
-2. Preprocessing: python/02_preprocessing.py
-Handles:
+2. Preprocessing: **python/02_preprocessing.py** handles:
 - Missing values.
 - Outliers where appropriate.
 - Variable transformations.
@@ -124,14 +124,14 @@ Handles:
 
 Preprocessing operations that learn parameters from the data should be fitted only on the training set to prevent data leakage.
 
-3. Model Training: python/03_models.py contains the machine-learning models used for mortality prediction.
+3. Model Training: **python/03_models.py** contains the machine-learning models used for mortality prediction.
 Potential baseline models include:
 - Logistic regression.
 - Random forest.
 - Gradient boosting.
 Model selection should be based on predefined evaluation criteria rather than test-set performance alone.
 
-4. Evaluation: python/04_evaluation.py evaluates model performance using metrics such as:
+4. Evaluation: **python/04_evaluation.py** evaluates model performance using metrics such as:
 - AUROC.
 - AUPRC.
 - Sensitivity.
@@ -145,7 +145,7 @@ Because ICU mortality datasets may be imbalanced, AUPRC and calibration should b
 
 The test set should be kept separate from model development and used only for final performance estimation.
 
-5. Interpretation: python/05_interpretation.py provides model interpretation using appropriate techniques such as:
+5. Interpretation: **python/05_interpretation.py** provides model interpretation using appropriate techniques such as:
 - Feature importance.
 - Permutation importance.
 - SHAP values, where appropriate.
