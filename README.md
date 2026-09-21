@@ -5,7 +5,7 @@ A reproducible machine-learning pipeline for predicting in-hospital mortality am
 
 The project combines SQL-based cohort construction and feature extraction with Python-based preprocessing, modeling, evaluation, and interpretation.
 
-### Important: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
+**Important**: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
 
 ## Project Structure
 ```
