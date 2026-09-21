@@ -8,7 +8,7 @@ The project combines SQL-based cohort construction and feature extraction with P
 Important: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
 
 Project Structure
-'''
+```
 mimic-iv-icu-mortality/
 │
 ├── README.md
@@ -35,7 +35,7 @@ mimic-iv-icu-mortality/
 ├── results/
 │
 └── requirements.txt
-'''
+
 
 ##Objectives
 
@@ -416,3 +416,4 @@ License and Data Access
 This repository's code license should be specified separately from the MIMIC-IV data-use terms.
 
 Do not commit MIMIC-IV patient-level data, credentials, or other restricted-access data to this repository.
+```
