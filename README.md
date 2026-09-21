@@ -35,59 +35,40 @@ mimic-iv-icu-mortality/
 ├── results/
 │
 └── requirements.txt
+```
 
-
-##Objectives
+## Objectives
 
 The main objectives are to:
 
-Construct an ICU cohort from MIMIC-IV.
+- Construct an ICU cohort from MIMIC-IV.
+- Extract clinically relevant measurements during an initial ICU time window.
+- Generate patient-level features from vital signs, laboratory measurements, ventilation, vasopressor use, and urine output.
+- Train machine-learning models to predict in-hospital mortality.
+- Evaluate discrimination, calibration, and clinically relevant performance.
+- Investigate model feature importance and individual predictions.
 
-Extract clinically relevant measurements during an initial ICU time window.
-
-Generate patient-level features from vital signs, laboratory measurements, ventilation, vasopressor use, and urine output.
-
-Train machine-learning models to predict in-hospital mortality.
-
-Evaluate discrimination, calibration, and clinically relevant performance.
-
-Investigate model feature importance and individual predictions.
-
-Data
-
+## Data
 This project uses MIMIC-IV, a large de-identified electronic health record database containing information from patients admitted to Beth Israel Deaconess Medical Center.
-
 Access to MIMIC-IV requires completion of the applicable PhysioNet credentialing and data-use requirements.
-
 The SQL scripts assume that MIMIC-IV has been loaded into a relational database such as PostgreSQL.
 
-Cohort Definition
+## Cohort Definition
 
-The exact cohort definition is implemented in:
-
-sql/01_cohort.sql
-
+The exact cohort definition is implemented in: sql/01_cohort.sql
 
 The cohort construction should explicitly define:
+- ICU admission criteria.
+- Adult versus pediatric patients.
+- Index ICU stay.
+- Mortality outcome.
+- Observation/prediction window.
 
-ICU admission criteria.
-
-Adult versus pediatric patients.
-
-Index ICU stay.
-
-Mortality outcome.
-
-Observation/prediction window.
-
-Exclusion criteria.
+## Exclusion criteria.
 
 Handling of multiple ICU admissions.
 
-The prediction target is:
-
-in-hospital mortality
-
+The prediction target is: in-hospital mortality
 
 The prediction time point and observation window should be fixed before model training to avoid using information that would not have been available at prediction time.
 
@@ -274,7 +255,7 @@ Feature importance should not be interpreted as evidence that a variable causall
 Reproducibility
 
 A typical workflow is:
-
+```
 MIMIC-IV
    │
    ▼
@@ -309,6 +290,7 @@ MIMIC-IV
    │
    ▼
 results/
+```
 
 Requirements
 
@@ -338,7 +320,7 @@ results/
 
 
 Examples include:
-
+```
 results/
 ├── cohort_summary.csv
 ├── missingness.png
@@ -348,7 +330,7 @@ results/
 ├── calibration.png
 ├── model_metrics.csv
 └── feature_importance.png
-
+```
 
 Large model artifacts and patient-level datasets should generally not be committed to Git.
 
@@ -416,4 +398,3 @@ License and Data Access
 This repository's code license should be specified separately from the MIMIC-IV data-use terms.
 
 Do not commit MIMIC-IV patient-level data, credentials, or other restricted-access data to this repository.
-```
