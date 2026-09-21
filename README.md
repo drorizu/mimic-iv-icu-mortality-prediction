@@ -5,9 +5,9 @@ A reproducible machine-learning pipeline for predicting in-hospital mortality am
 
 The project combines SQL-based cohort construction and feature extraction with Python-based preprocessing, modeling, evaluation, and interpretation.
 
-Important: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
+### Important: MIMIC-IV is a restricted-access clinical database. This repository contains analysis code and does not include the underlying patient-level data.
 
-Project Structure
+## Project Structure
 ```
 mimic-iv-icu-mortality/
 │
@@ -54,183 +54,92 @@ Access to MIMIC-IV requires completion of the applicable PhysioNet credentialing
 The SQL scripts assume that MIMIC-IV has been loaded into a relational database such as PostgreSQL.
 
 ## Cohort Definition
-
 The exact cohort definition is implemented in: sql/01_cohort.sql
-
 The cohort construction should explicitly define:
 - ICU admission criteria.
 - Adult versus pediatric patients.
 - Index ICU stay.
 - Mortality outcome.
 - Observation/prediction window.
-
-## Exclusion criteria.
-
-Handling of multiple ICU admissions.
+- Exclusion criteria.
+- Handling of multiple ICU admissions.
 
 The prediction target is: in-hospital mortality
 
 The prediction time point and observation window should be fixed before model training to avoid using information that would not have been available at prediction time.
 
-Feature Extraction
-Item Dictionary
-sql/02_item_dictionary.sql
+## Feature Extraction
+Item Dictionary: sql/02_item_dictionary.sql maps MIMIC-IV item identifiers to the clinical variables required by the project.
 
-
-Maps MIMIC-IV item identifiers to the clinical variables required by the project.
-
-Vital Signs
-sql/03_vitals.sql
-
-
-Extracts measurements such as:
-
-Heart rate
-
-Systolic blood pressure
-
-Diastolic blood pressure
-
-Mean arterial pressure
-
-Respiratory rate
-
-Temperature
-
-Oxygen saturation
-
-Laboratory Measurements
-sql/04_labs.sql
-
-
-Extracts relevant laboratory measurements, for example:
-
-Sodium
-
-Potassium
-
-Chloride
-
-Bicarbonate
-
-Creatinine
-
-Blood urea nitrogen
-
-Glucose
-
-Hemoglobin
-
-White blood cell count
-
-Platelets
-
-Lactate
-
+Vital Signs: sql/03_vitals.sql extracts measurements such as:
+- Heart rate
+- Systolic blood pressure
+- Diastolic blood pressure
+- Mean arterial pressure
+- Respiratory rate
+- Temperature
+- Oxygen saturation
+  
+Laboratory Measurements: sql/04_labs.sql extracts relevant laboratory measurements, for example:
+- Sodium
+- Potassium
+- Chloride
+- Bicarbonate
+- Creatinine
+- Blood urea nitrogen
+- Glucose
+- Hemoglobin
+- White blood cell count
+- Platelets
+- Lactate
 The final variable list should be documented in the corresponding SQL file.
 
-Mechanical Ventilation
-sql/05_ventilation.sql
+Mechanical Ventilation: sql/05_ventilation.sql creates features describing mechanical ventilation exposure during the observation window.
 
+Vasopressors: sql/06_pressors.sql extracts vasopressor exposure and, where appropriate, dose-related features.
 
-Creates features describing mechanical ventilation exposure during the observation window.
+Urine Output: sql/07_urine_output.sql calculates urine-output-related features over the predefined observation period.
 
-Vasopressors
-sql/06_pressors.sql
-
-
-Extracts vasopressor exposure and, where appropriate, dose-related features.
-
-Urine Output
-sql/07_urine_output.sql
-
-
-Calculates urine-output-related features over the predefined observation period.
-
-Final Dataset
-sql/08_final_dataset.sql
-
-
-Combines the cohort and extracted variables into the modeling dataset.
+Final Dataset: sql/08_final_dataset.sql combines the cohort and extracted variables into the modeling dataset.
 
 The resulting dataset should contain one modeling record per index ICU stay.
 
-Python Pipeline
-1. Exploration
-python/01_exploration.py
+## Python Pipeline
+1. Exploration: python/01_exploration.py performs exploratory data analysis, including:
+- Dataset dimensions.
+- Missingness.
+- Variable distributions.
+- Outcome prevalence.
+- Basic descriptive statistics.
+- Potential data-quality problems.
 
-
-Performs exploratory data analysis, including:
-
-Dataset dimensions.
-
-Missingness.
-
-Variable distributions.
-
-Outcome prevalence.
-
-Basic descriptive statistics.
-
-Potential data-quality problems.
-
-2. Preprocessing
-python/02_preprocessing.py
-
-
+2. Preprocessing: python/02_preprocessing.py
 Handles:
-
-Missing values.
-
-Outliers where appropriate.
-
-Variable transformations.
-
-Categorical encoding.
-
-Feature scaling where required.
-
-Train/validation/test splitting.
+- Missing values.
+- Outliers where appropriate.
+- Variable transformations.
+- Categorical encoding.
+- Feature scaling where required.
+- Train/validation/test splitting.
 
 Preprocessing operations that learn parameters from the data should be fitted only on the training set to prevent data leakage.
 
-3. Model Training
-python/03_models.py
-
-
-Contains the machine-learning models used for mortality prediction.
-
+3. Model Training: python/03_models.py contains the machine-learning models used for mortality prediction.
 Potential baseline models include:
-
-Logistic regression.
-
-Random forest.
-
-Gradient boosting.
-
+- Logistic regression.
+- Random forest.
+- Gradient boosting.
 Model selection should be based on predefined evaluation criteria rather than test-set performance alone.
 
-4. Evaluation
-python/04_evaluation.py
-
-
-Evaluates model performance using metrics such as:
-
-AUROC.
-
-AUPRC.
-
-Sensitivity.
-
-Specificity.
-
-Positive predictive value.
-
-Negative predictive value.
-
-Calibration.
-
-Brier score.
+4. Evaluation: python/04_evaluation.py evaluates model performance using metrics such as:
+- AUROC.
+- AUPRC.
+- Sensitivity.
+- Specificity.
+- Positive predictive value.
+- Negative predictive value.
+- Calibration.
+- Brier score.
 
 Because ICU mortality datasets may be imbalanced, AUPRC and calibration should be considered alongside AUROC.
 
@@ -358,43 +267,24 @@ Feature-selection procedures are performed within the training process.
 
 The test set remains untouched until final evaluation.
 
-Limitations
+## Limitations
 
 Important limitations include:
-
-MIMIC-IV represents a single healthcare system and may not generalize to other populations.
-
-EHR measurements are irregular and subject to missingness.
-
-Missingness itself may contain clinical information.
-
-Retrospective observational data cannot establish causal relationships.
-
-Model performance can change across institutions, populations, and time periods.
-
-A model with good discrimination may still have poor calibration.
+- MIMIC-IV represents a single healthcare system and may not generalize to other populations.
+- EHR measurements are irregular and subject to missingness.
+- Missingness itself may contain clinical information.
+- Retrospective observational data cannot establish causal relationships.
+- Model performance can change across institutions, populations, and time periods.
+- A model with good discrimination may still have poor calibration.
 
 Predictions should not be interpreted as clinical recommendations without appropriate prospective validation and clinical evaluation.
 
-Ethical Considerations
+## Ethical Considerations
+- This project is intended for research and educational purposes.
+- Mortality predictions generated from retrospective EHR data should not be used directly for clinical decision-making. Any clinical deployment would require additional validation, governance, monitoring, and assessment of potential harms and biases.
 
-This project is intended for research and educational purposes.
+## Data Access
+This project uses the MIMIC-IV database for ICU mortality prediction. MIMIC-IV is a restricted-access dataset distributed through PhysioNet. Access requires credentialing, completion of the required CITI training, and acceptance of the PhysioNet Credentialed Health Data Use Agreement. 
 
-Mortality predictions generated from retrospective EHR data should not be used directly for clinical decision-making. Any clinical deployment would require additional validation, governance, monitoring, and assessment of potential harms and biases.
-
-Citation
-
-If you use MIMIC-IV, cite the corresponding MIMIC-IV publication and follow the citation requirements specified by PhysioNet.
-
-MIMIC-IV is available through PhysioNet:
-
-{"fallbackMarkdown":"MIMIC-IV on PhysioNet
-","reference":{"matched_text":"","prefix":null,"start_idx":8959,"end_idx":9025,"safe_urls":[],"refs":[],"alt":"MIMIC-IV on PhysioNet
-","prompt_text":"MIMIC-IV on PhysioNet
-","type":"url","title":"MIMIC-IV on PhysioNet","layout":null,"item":{"title":"MIMIC-IV on PhysioNet","url":"https://physionet.org/content/mimiciv/?utm_source=chatgpt.com","attribution":"physionet.org","pub_date":null,"snippet":null,"attribution_segments":null,"supporting_websites":null,"refs":[],"hue":null,"attributions":null},"logo":null},"showLoginRequiredCard":false}
-
-License and Data Access
-
-This repository's code license should be specified separately from the MIMIC-IV data-use terms.
-
-Do not commit MIMIC-IV patient-level data, credentials, or other restricted-access data to this repository.
+## Citation
+Johnson, A., Bulgarelli, L., Pollard, T., Gow, B., Moody, B., Horng, S., Celi, L. A., & Mark, R. (2024). MIMIC-IV (version 3.1). PhysioNet. RRID:SCR_007345. https://doi.org/10.13026/kpb9-mt58
