@@ -145,23 +145,14 @@ Because ICU mortality datasets may be imbalanced, AUPRC and calibration should b
 
 The test set should be kept separate from model development and used only for final performance estimation.
 
-5. Interpretation
-python/05_interpretation.py
-
-
-Provides model interpretation using appropriate techniques such as:
-
-Feature importance.
-
-Permutation importance.
-
-SHAP values, where appropriate.
-
-Individual prediction explanations.
-
+5. Interpretation: python/05_interpretation.py provides model interpretation using appropriate techniques such as:
+- Feature importance.
+- Permutation importance.
+- SHAP values, where appropriate.
+- Individual prediction explanations.
 Feature importance should not be interpreted as evidence that a variable causally affects mortality.
 
-Reproducibility
+## Reproducibility
 
 A typical workflow is:
 ```
@@ -201,11 +192,9 @@ MIMIC-IV
 results/
 ```
 
-Requirements
+## Requirements
 
-Python dependencies are listed in:
-
-requirements.txt
+Python dependencies are listed in: requirements.txt
 
 
 A typical environment can be created with:
@@ -221,7 +210,7 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 
-Results
+## Results
 
 Generated figures, tables, metrics, and model artifacts should be stored in:
 
@@ -243,29 +232,24 @@ results/
 
 Large model artifacts and patient-level datasets should generally not be committed to Git.
 
-Notebooks
+## Notebooks
 
 The notebooks/ directory can contain exploratory or presentation-oriented notebooks.
 
 Production/reproducible logic should remain in the sql/ and python/ directories where practical, rather than existing only inside notebooks.
 
-Data Leakage Considerations
+
+## Data Leakage Considerations
 
 Clinical prediction models are particularly vulnerable to temporal leakage.
 
 This project should ensure that:
-
-Only information available before the prediction time is used.
-
-Future measurements are excluded.
-
-Outcome-related variables are not used as predictors.
-
-Imputation parameters are learned from the training data only.
-
-Feature-selection procedures are performed within the training process.
-
-The test set remains untouched until final evaluation.
+- Only information available before the prediction time is used.
+- Future measurements are excluded.
+- Outcome-related variables are not used as predictors.
+- Imputation parameters are learned from the training data only.
+- Feature-selection procedures are performed within the training process.
+- The test set remains untouched until final evaluation.
 
 ## Limitations
 
