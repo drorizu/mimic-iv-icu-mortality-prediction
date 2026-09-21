@@ -198,18 +198,18 @@ Python dependencies are listed in: requirements.txt
 
 
 A typical environment can be created with:
-
+```
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-
+```
 
 On Windows:
-
+```
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-
+```
 ## Results
 
 Generated figures, tables, metrics, and model artifacts should be stored in:
