@@ -44,8 +44,9 @@ Enter your PostgreSQL password when prompted.
 
 Run:
 
+```bash
 ./buildmimic.sh
-
+```
 
 The script creates the PostgreSQL schema, tables, constraints, and indexes, and loads the MIMIC-IV Demo data into PostgreSQL.
 
