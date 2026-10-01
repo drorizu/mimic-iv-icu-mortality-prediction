@@ -272,3 +272,8 @@ This project uses the MIMIC-IV database for ICU mortality prediction. MIMIC-IV i
 
 ## Citation
 Johnson, A., Bulgarelli, L., Pollard, T., Gow, B., Moody, B., Horng, S., Celi, L. A., & Mark, R. (2024). MIMIC-IV (version 3.1). PhysioNet. RRID:SCR_007345. https://doi.org/10.13026/kpb9-mt58
+
+## Dataset & Reproducibility
+This repository demonstrates an ICU mortality prediction pipeline using the publicly accessible MIMIC-IV Clinical Database Demo. The Demo contains 100 patients and follows the same schema as MIMIC-IV, allowing the complete data-processing and modeling workflow to be reproduced without credentialed access.
+The research experiments described in the accompanying paper were conducted using the full MIMIC-IV database under its credentialed-access requirements. Patient-level MIMIC-IV data are therefore not included in this repository.
+The Demo is used here specifically to make the implementation and workflow publicly reproducible.
