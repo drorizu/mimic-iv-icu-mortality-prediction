@@ -1,0 +1,1 @@
+SET CLIENT_ENCODING TO 'utf8';
