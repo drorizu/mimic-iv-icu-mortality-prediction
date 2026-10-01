@@ -8,7 +8,9 @@ Download and install PostgreSQL
  for your operating system. Complete the initial setup, including setting a PostgreSQL password.
 
 ## 2. Clone this repository
+```bash
 git clone <repository-url>
+```
 
 ## 3. Download the MIMIC-IV Demo
 
@@ -32,7 +34,9 @@ my-projects/
 
 From your CLI, navigate to the postgres_init directory:
 
+```bash
 cd path/to/your-repository/postgres_init
+```
 
 ## 6. Connect to PostgreSQL
 psql
