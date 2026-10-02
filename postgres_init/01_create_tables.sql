@@ -1,4 +1,4 @@
--- Creating schemas --
+-- Create schemas --
 DROP SCHEMA IF EXISTS mimiciv_hosp CASCADE;
 CREATE SCHEMA mimiciv_hosp;
 DROP SCHEMA IF EXISTS mimiciv_icu CASCADE;
@@ -6,7 +6,7 @@ CREATE SCHEMA mimiciv_icu;
 DROP SCHEMA IF EXISTS mimiciv_derived CASCADE;
 CREATE SCHEMA mimiciv_derived;
 
--- Creating tables --
+-- Create the admissions table in the mimiciv_hosp schema--
 DROP TABLE IF EXISTS mimiciv_hosp.admissions;
 CREATE TABLE mimiciv_hosp.admissions
 (
@@ -26,5 +26,15 @@ CREATE TABLE mimiciv_hosp.admissions
   edregtime TIMESTAMP,
   edouttime TIMESTAMP,
   hospital_expire_flag SMALLINT
+);
+
+-- Create the Healthcare Common Procedure Coding System (hcpcs) table in the mimiciv_hosp schema --
+DROP TABLE IF EXISTS mimiciv_hosp.d_hcpcs;
+CREATE TABLE mimiciv_hosp.d_hcpcs
+(
+  code CHAR(5) NOT NULL,
+  category SMALLINT,
+  long_description TEXT,
+  short_description VARCHAR(180)
 );
 
